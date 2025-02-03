@@ -1,85 +1,93 @@
-# Lex_yacc_semilanguage
-A compiler designed using lex and yacc ,that compiles a programming language with common operations
-Overview
-This project is an implementation of a simple interpreter using Flex (fast lexical analyzer generator) and Bison (parser generator). The interpreter supports basic arithmetic operations, variable assignments, and control flow statements such as if, while, do-while, and for loops. Additionally, it includes commands to print values and exit the program.
+# Features
+Arithmetic Operations: Supports addition (+), subtraction (-), multiplication (*), and division (/).
 
-Files
-lexer.l: The Flex file containing the lexical analyzer definitions.
+Conditional Statements: Supports if, else, and while loops.
 
-parser.y: The Bison file containing the grammar and parser rules.
+Loops: Supports while and do-while loops.
 
-main.cpp: The main C++ file to initialize and execute the parser.
+Variable Assignment: Supports assignment of values to variables (single-character identifiers, both uppercase and lowercase).
 
-Requirements
-Flex
+Print Statement: Supports printing the value of expressions.
 
-Bison
+Exit Command: Supports an exit command to terminate the program.
 
-GCC (GNU Compiler Collection)
+# Grammar
+The grammar of the language is defined in the yacc file (y.tab.c). Here is a brief overview of the grammar rules:
 
-Installation
-Install Flex and Bison:
+Program: A program consists of a list of statements.
 
+Statements: Statements can be assignments, print statements, exit commands, loops, or conditional statements.
+
+Expressions: Expressions can be arithmetic expressions, conditions, or factor expressions.
+
+Conditions: Conditions are used in if and while statements and support comparison operators (<, >, ==) and logical operators (&&, ||).
+
+# Tokens
+The lexer (lex.yy.c) recognizes the following tokens:
+
+Keywords: print, exit, while, if, else, do, for.
+
+Operators: ++, --, +, -, *, /, =, <, >, ==, &&, ||.
+
+Punctuation: (, ), {, }, ;.
+
+Identifiers: Single-character identifiers (a-z, A-Z).
+
+Numbers: Integer literals.
+
+# How to Build and Run
+Install Dependencies: Ensure you have flex and bison installed on your system.
+```
 sh
+Copy
 sudo apt-get install flex bison
-Compile the Lexer and Parser:
+```
+Generate Lexer and Parser:
 
+```
 sh
+Copy
 flex lexer.l
 bison -d parser.y
-g++ -o interpreter lex.yy.c parser.tab.c main.cpp -lfl
-Usage
-Run the Interpreter:
+```
+Compile the Code:
 
+```
 sh
+Copy
+gcc lex.yy.c y.tab.c -o interpreter
+```
+
+Run the Interpreter:
+```
+sh
+Copy
 ./interpreter
-Input Program:
+Example Input
+```
+Here is an example of valid input for the interpreter:
 
-You can input a program directly into the interpreter. Below is an example:
-
-cpp
-x = 5;
-y = 10;
-print x + y;
-if (x < y) {
-    print y - x;
-}
-exit;
-Grammar Rules
-The interpreter supports the following grammar rules:
-
-Keywords: print, exit, while, if, else, do, for
-
-Operators: ++, --, +, -, *, /, =, <, >, ==, &&, ||
-
-Symbols: (, ), {, }, ;
-
-Identifiers: [a-zA-Z]
-
-Numbers: [0-9]+
-
-Example
-Here's an example program:
-
-cpp
-x = 3;
-y = 4;
-z = x + y * 2;
-print z; // Outputs: 11
-if (z > 10) {
-    print "Greater than 10";
+```
+a = 5;
+b = 10;
+print a + b;
+if (a < b) {
+    print a;
 } else {
-    print "Less than or equal to 10";
+    print b;
+}
+while (a < b) {
+    a = a + 1;
+    print a;
 }
 exit;
-Functions
-Lexical Analyzer: Defined in lexer.l to tokenize the input.
-
-Parser: Defined in parser.y to parse the tokens and build the abstract syntax tree.
-
-Symbol Table: Maintained as an array to store variable values.
-
-Control Flow: Implemented using various parser rules.
-
+```
 Error Handling
-Errors are reported using the yyerror function which prints error messages to stderr.
+The interpreter includes basic error handling. If an unexpected character is encountered, it will print an error message and continue parsing.
+
+# Limitations
+Single-character Identifiers: Variables must be single-character identifiers (a-z, A-Z).
+
+No Floating-point Numbers: The interpreter only supports integer arithmetic.
+
+Basic Error Reporting: Error handling is minimal and may not cover all edge cases.
