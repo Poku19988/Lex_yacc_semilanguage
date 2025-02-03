@@ -39,14 +39,14 @@ Numbers: Integer literals.
 Install Dependencies: Ensure you have flex and bison installed on your system.
 ```
 sh
-Copy
+
 sudo apt-get install flex bison
 ```
 Generate Lexer and Parser:
 
 ```
 sh
-Copy
+
 flex lexer.l
 bison -d parser.y
 ```
@@ -54,14 +54,14 @@ Compile the Code:
 
 ```
 sh
-Copy
+
 gcc lex.yy.c y.tab.c -o interpreter
 ```
 
 Run the Interpreter:
 ```
 sh
-Copy
+
 ./interpreter
 Example Input
 ```
